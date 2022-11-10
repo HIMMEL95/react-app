@@ -2,9 +2,9 @@ import React, { useReducer, useEffect } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { auth } from "./services/firebase";
 
-// import "./styles.css";
+import "./index.css";
 
-// import Chat from "./pages/Chat";
+import Chat from "./pages/Chat";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import PublicRoute from "./components/PublicRoute";
@@ -27,7 +27,7 @@ function reducer(state, action) {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { authenticated } = state;
-
+  
   useEffect(() => {
     auth().onAuthStateChanged((user) => {
       if (user) {
@@ -43,22 +43,22 @@ function App() {
       }
     });
   }, []);
-
+  
   return (
     <Router>
       <Switch>
-      <PrivateRoute
+        {/* <PrivateRoute
           path="/chat"
           authenticated={authenticated}
           component={Chat}
-        />
+        /> */}
         <PublicRoute
           path="/signup"
           authenticated={authenticated}
           component={SignUp}
         />
         <PublicRoute
-          path="/login"
+          path={["/", "/login"]}
           authenticated={authenticated}
           component={Login}
         />
